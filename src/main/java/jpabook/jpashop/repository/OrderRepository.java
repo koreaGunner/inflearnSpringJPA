@@ -83,11 +83,29 @@ public class OrderRepository {
 
     public List<OrderSimpleQueryDto> findOrderDtos() {
         List<OrderSimpleQueryDto> result =
-                em.createQuery("select new jpabook.jpashop.repository.OrderSimpleQueryDto(o.id, m.name, o.orderDate, o.status, d.address)" +
+                em.createQuery("select new jpabook.jpashop.repository.order.simplequery.OrderSimpleQueryDto(o.id, m.name, o.orderDate, o.status, d.address)" +
                                   " from Order o" +
                                   " join o.member m" +
                                   " join o.delivery d", OrderSimpleQueryDto.class)
                         .getResultList();
+        return result;
+    }
+
+    public List<Order> findAllWithItem() {
+        //컬렉션 조회의 치명적인 단점 -> log : HHH90003004: firstResult/maxResults specified with collection fetch; applying in memory
+        //컬렉션의 모든 조회를 한 뒤, 메모리에서 sorting한다
+        //즉 10000개의 데이터 중에서 100개만 페이징 처리를 하려고 해도 10000개를 다 조회한 후 100개를 뿌려준다(메모리 낭비)
+        //-> 1대다(OneToMany) : 페이징 처리 불가
+        List<Order> result = em.createQuery(
+                        "select distinct o from Order o" +
+                                " join fetch o.member m" +
+                                " join fetch o.delivery d" +
+                                " join fetch o.orderItems oi" +
+                                " join fetch oi.item", Order.class)
+                .setFirstResult(1)
+                .setMaxResults(10)
+                .getResultList();
+
         return result;
     }
 }
