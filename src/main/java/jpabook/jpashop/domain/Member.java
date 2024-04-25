@@ -21,7 +21,7 @@ public class Member {
     @Embedded
     private Address address;
 
-    @JsonIgnore //무한루프 방지
+    //@JsonIgnore //무한루프 방지
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 }
