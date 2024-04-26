@@ -108,4 +108,15 @@ public class OrderRepository {
 
         return result;
     }
+
+    public List<Order> findAllWithMemberDelivery(int offset, int limit) {
+        //쿼리는 모두 조인한거(findAllWithItem) 보다 더 나가지만 데이터 양은 줄어든다(중복이 없음)
+        List<Order> result = em.createQuery("select o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d", Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+        return result;
+    }
 }
