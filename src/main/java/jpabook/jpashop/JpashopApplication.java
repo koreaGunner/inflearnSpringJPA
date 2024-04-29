@@ -14,10 +14,10 @@ public class JpashopApplication {
 	}
 
 	//원래 쓰면 안된다.(쓰더라도 엔티티 자체를 외부로 노출하면 안된다.)
-	@Bean
-	Hibernate5JakartaModule hibernate5Module() {
-		Hibernate5JakartaModule hibernate5JakartaModule = new Hibernate5JakartaModule();
-//		hibernate5JakartaModule.configure(Hibernate5JakartaModule.Feature.FORCE_LAZY_LOADING, true);
-		return hibernate5JakartaModule;
-	}
+//	@Bean
+//	Hibernate5JakartaModule hibernate5Module() {
+//		Hibernate5JakartaModule hibernate5JakartaModule = new Hibernate5JakartaModule();
+////		hibernate5JakartaModule.configure(Hibernate5JakartaModule.Feature.FORCE_LAZY_LOADING, true);
+//		return hibernate5JakartaModule;
+//	}
 }
