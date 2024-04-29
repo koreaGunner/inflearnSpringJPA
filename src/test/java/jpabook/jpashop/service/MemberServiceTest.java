@@ -3,11 +3,11 @@ package jpabook.jpashop.service;
 import jakarta.persistence.EntityManager;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.repository.MemberRepository;
+import jpabook.jpashop.repository.MemberRepositoryOld;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,7 +16,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MemberServiceTest {
 
     @Autowired MemberService memberService;
-    @Autowired MemberRepository memberRepository;
+    @Autowired
+    MemberRepository memberRepository;
     @Autowired
     EntityManager em;
 
@@ -33,7 +34,7 @@ public class MemberServiceTest {
 
         //then
         em.flush(); //@Rollback 설정없이 insert문을 보려면 flush 해주면 된다.(rollback은 당연히 한다)
-        assertEquals(member, memberRepository.findOne(saveId));
+        assertEquals(member, memberRepository.findById(saveId).get());
     }
 
     @Test
