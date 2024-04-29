@@ -17,10 +17,10 @@ public class OrderQueryRepository {
 
     public List<OrderQueryDto> findOrderQueryDtos() {
 
-        List<OrderQueryDto> result = findOrders();
+        List<OrderQueryDto> result = findOrders(); //Query 1번 -> N개
 
         result.forEach(o -> {
-            List<OrderItemQueryDto> orderItems = findOrderItems(o.getOrderId());
+            List<OrderItemQueryDto> orderItems = findOrderItems(o.getOrderId()); //Query N번
             o.setOrderItems(orderItems);
         });
 

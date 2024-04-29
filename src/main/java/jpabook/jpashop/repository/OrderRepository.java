@@ -102,7 +102,7 @@ public class OrderRepository {
                                 " join fetch o.delivery d" +
                                 " join fetch o.orderItems oi" +
                                 " join fetch oi.item", Order.class)
-                .setFirstResult(1)
+                .setFirstResult(0)
                 .setMaxResults(10)
                 .getResultList();
 
